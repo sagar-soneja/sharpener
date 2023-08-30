@@ -47,3 +47,29 @@ list.forEach(l => {
     l.style.fontWeight = 'bold'
 })
 list.style.fontWeight = 'bold'
+
+
+
+
+const newLi = document.createElement("li");
+newLi.textContent = "New Item";
+newLi.className = "list-group-item new-item"; 
+
+
+const ul = document.querySelector(".items");
+ul.appendChild(newLi);
+
+
+const itemsWithClass = document.getElementsByClassName("new-item");
+if (itemsWithClass.length > 0) {
+    itemsWithClass[0].textContent = "Edited with getElementsByClassName";
+}
+
+
+const listItems = document.getElementsByTagName("li");
+for (const item of listItems) {
+    if (item.classList.contains("new-item")) {
+        item.textContent = "Edited with getElementsByTagName";
+        break; 
+    }
+}
