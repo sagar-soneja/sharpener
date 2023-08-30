@@ -37,3 +37,13 @@ title.style.border = 'solid 10px black'
 const addItem = document.querySelector('.title')
 addItem.style.fontWeight = 'bold'
 addItem.style.color = 'green'
+
+const listelement = document.querySelector('.list-group-item:nth-child(2)')
+listelement.style.background = 'green'
+
+const list = document.querySelectorAll('.list-group-item')
+
+list.forEach(l => {
+    l.style.fontWeight = 'bold'
+})
+list.style.fontWeight = 'bold'
