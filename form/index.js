@@ -422,7 +422,10 @@ document.addEventListener('DOMContentLoaded', function () {
     emailInput.value = '';
     phoneInput.value = '';
 
-   
+    displayMessage('User added successfully', 'success');
+
+    // Refresh the user list
+    updateUsersList();
   });
 
   function saveUserData(email, data) {
@@ -430,6 +433,41 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem(email, userDataJSON);
   }
 
- 
+  function updateUsersList() {
+    usersList.innerHTML = '';
+    const userDetailsDiv = document.getElementById('user-details');
+    userDetailsDiv.innerHTML = '';
+  
+    for (let i = 0; i < localStorage.length; i++) {
+      const email = localStorage.key(i);
+      const userDataJSON = localStorage.getItem(email);
+      const userData = JSON.parse(userDataJSON);
+  
+      const userItem = document.createElement('li');
+      userItem.innerHTML = `<strong>Email:</strong> ${email}, <strong>Name:</strong> ${userData.name}, <strong>Phone:</strong> ${userData.phone}`;
+      usersList.appendChild(userItem);
+  
+      // Log user details to the console
+      console.log(`Email: ${email}, Name: ${userData.name}, Phone: ${userData.phone}`);
+  
+      // Display user details outside the form
+      const userDetailsItem = document.createElement('p');
+      userDetailsItem.innerHTML = `<strong>Email:</strong> ${email}, <strong>Name:</strong> ${userData.name}, <strong>Phone:</strong> ${userData.phone}`;
+      userDetailsDiv.appendChild(userDetailsItem);
+    }
+  }
 
+  
+  function displayMessage(message, className) {
+    const msgDiv = document.querySelector('.msg');
+    msgDiv.innerHTML = message;
+    msgDiv.classList.remove('success', 'error');
+    msgDiv.classList.add(className);
+    setTimeout(function () {
+      msgDiv.innerHTML = '';
+    }, 3000);
+  }
+
+  // Initial load
+  updateUsersList();
 });
