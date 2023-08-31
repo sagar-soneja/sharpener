@@ -375,14 +375,61 @@
 //   }
 // }
 
-const myForm = document.querySelector('#my-form');
+// const myForm = document.querySelector('#my-form');
 
-myForm.addEventListener('submit', onSubmit);
+// myForm.addEventListener('submit', onSubmit);
 
-function onSubmit(e) {
-  e.preventDefault();
-  console.log(e)
-  localStorage.setItem('form-data', e.target)
+// function onSubmit(e) {
+//   e.preventDefault();
+//   console.log(e)
+//   console.log(e.target)
+//   localStorage.setItem('form-data', e.target)
 
-}
+// }
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('my-form');
+  const usersList = document.getElementById('users');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+
+    const name = nameInput.value;
+    const email = emailInput.value;
+    const phone = phoneInput.value;
+
+    if (!name || !email || !phone) {
+      displayMessage('Please fill in all fields', 'error');
+      return;
+    }
+
+    const userData = {
+      name: name,
+      phone: phone
+    };
+
+    // Save data to local storage
+    saveUserData(email, userData);
+
+    // Clear form fields
+    nameInput.value = '';
+    emailInput.value = '';
+    phoneInput.value = '';
+
+   
+  });
+
+  function saveUserData(email, data) {
+    const userDataJSON = JSON.stringify(data);
+    localStorage.setItem(email, userDataJSON);
+  }
+
+ 
+
+});
