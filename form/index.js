@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
       // Display user details outside the form
       const userDetailsItem = document.createElement('p');
-      userDetailsItem.innerHTML = `<strong>Email:</strong> ${email}, <strong>Name:</strong> ${userData.name}, <strong>Phone:</strong> ${userData.phone}`;
+      userDetailsItem.innerHTML = `<strong>Email:</strong> ${email}, <strong>Name:</strong> ${userData.name}, <strong>Phone:</strong> ${userData.phone} <button class="delete">Delete</button>`;
       userDetailsDiv.appendChild(userDetailsItem);
     }
   }
@@ -468,6 +468,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 3000);
   }
 
+  usersList.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete')) {
+      // Get the email of the user to be deleted
+      const email = event.target.parentElement.querySelector('strong').textContent;
+  
+      // Delete the user from local storage
+      localStorage.removeItem(email);
+  
+      // Remove the user from the UI
+      event.target.parentElement.remove();
+    }
+  });
+
   // Initial load
   updateUsersList();
 });
+
